@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static java.lang.String.valueOf;
+
 public class InserirFt extends AppCompatActivity implements View.OnClickListener {
 
     public int a,b;
@@ -21,6 +23,7 @@ public class InserirFt extends AppCompatActivity implements View.OnClickListener
     public ArrayList<EditText> numeradores = new ArrayList<>();
     public ArrayList<EditText> denominadores = new ArrayList<>();
     public Button btn3;
+    public double[] vetNumerador, vetDenominador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,11 @@ public class InserirFt extends AppCompatActivity implements View.OnClickListener
         Bundle bundle = in.getExtras();
 
 
-        a = bundle.getInt("grauDenominador");
-        b = bundle.getInt("grauNumerador");
+        b = bundle.getInt("grauDenominador");
+        a = bundle.getInt("grauNumerador");
+
+        vetNumerador = new double[a+1];
+        vetDenominador = new double[b+1];
 
         denominadorLayout = (LinearLayout) findViewById(R.id.denominadorLayout);
         numeradorLayout = (LinearLayout) findViewById(R.id.numeradorLayout);
@@ -58,7 +64,7 @@ public class InserirFt extends AppCompatActivity implements View.OnClickListener
             numeradorLayout.addView(aux2);
 
         }
-        for (int i = a; i > -1; i--){
+        for (int i = b; i > -1; i--){
             EditText aux = new EditText(this);
             aux.setTextSize(30);
             aux.setEms(2);
@@ -79,6 +85,29 @@ public class InserirFt extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        int aux = a;
+        if (v == btn3){
+            for (int i = 0; i < a+1; i++){
+                String test = numeradores.get(i).getText().toString();
+                vetNumerador[aux] = Double.parseDouble(test);
+                Log.d("teste 1", ""+ vetNumerador[aux]);
+                aux--;
 
+            }
+            int aux2 = b;
+            for (int i = 0; i < b+1 ; i++){
+                String test1 = denominadores.get(i).getText().toString();
+                vetDenominador[aux2] = Double.parseDouble(test1);
+                //Log.d("teste 2", "" + vetDenominador[aux]);
+                aux2--;
+            }
+
+            Principal x =  new Principal(vetNumerador,vetDenominador,a,b);
+
+
+            Intent in = new Intent(this,GerarGrafico.class);
+            startActivity(in);
+
+        }
     }
 }

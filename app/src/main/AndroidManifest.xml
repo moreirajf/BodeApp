@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InserirFt"></activity>
+        <activity android:name=".InserirFt" />
+        <activity android:name=".GerarGrafico"></activity>
     </application>
 
 </manifest>
